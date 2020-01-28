@@ -48,12 +48,11 @@ def bin_to_hex(b):
     b = [line[i:i+4] for i in range(0, len(b), 4)]
     return ''.join([bin_to_hex(s) for s in b])
 
-def generate_key():
-    # insecure probably, random num generation should be done with SystemRandom
-	return ''.join([random.choice(key_chars) for _ in range(64)])
-
 def read_keyfile(filename):
-	return open(filename).read()
+    try:
+	    return open(filename).read()
+    except FileNotFoundError:
+        print(f'Cannot find keyfile "{filename}"')
 
 def export_key_to_keyfile(key, filename):
 	return open(filename, 'w').write(key)
